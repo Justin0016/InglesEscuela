@@ -46,6 +46,8 @@ namespace InglesEscuela {
         
         private global::System.Data.DataRelation relationAlumnos_ConCalGen;
         
+        private global::System.Data.DataRelation relationProfesores_ConCalGen;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -371,6 +373,7 @@ namespace InglesEscuela {
             this.relationAlumnos_ConCal = this.Relations["Alumnos_ConCal"];
             this.relationAlumnos_Calificaciones = this.Relations["Alumnos_Calificaciones"];
             this.relationAlumnos_ConCalGen = this.Relations["Alumnos_ConCalGen"];
+            this.relationProfesores_ConCalGen = this.Relations["Profesores_ConCalGen"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -409,6 +412,10 @@ namespace InglesEscuela {
                         this.tableAlumnos.IdAlumnoColumn}, new global::System.Data.DataColumn[] {
                         this.tableConCalGen.IdAlumnoColumn}, false);
             this.Relations.Add(this.relationAlumnos_ConCalGen);
+            this.relationProfesores_ConCalGen = new global::System.Data.DataRelation("Profesores_ConCalGen", new global::System.Data.DataColumn[] {
+                        this.tableProfesores.IdProfesorColumn}, new global::System.Data.DataColumn[] {
+                        this.tableConCalGen.Profesores_IdProfesorColumn}, false);
+            this.Relations.Add(this.relationProfesores_ConCalGen);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -905,6 +912,10 @@ namespace InglesEscuela {
             
             private global::System.Data.DataColumn columnIdUsuario;
             
+            private global::System.Data.DataColumn columnNivel;
+            
+            private global::System.Data.DataColumn columnIdGrado;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public CalificacionesDataTable() {
@@ -988,6 +999,22 @@ namespace InglesEscuela {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn NivelColumn {
+                get {
+                    return this.columnNivel;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn IdGradoColumn {
+                get {
+                    return this.columnIdGrado;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1023,7 +1050,7 @@ namespace InglesEscuela {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public CalificacionesRow AddCalificacionesRow(System.DateTime Fecha, AlumnosRow parentAlumnosRowByAlumnos_Calificaciones, decimal Calificación, string idProfesor, string IdUsuario) {
+            public CalificacionesRow AddCalificacionesRow(System.DateTime Fecha, AlumnosRow parentAlumnosRowByAlumnos_Calificaciones, decimal Calificación, string idProfesor, string IdUsuario, string Nivel, string IdGrado) {
                 CalificacionesRow rowCalificacionesRow = ((CalificacionesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -1031,7 +1058,9 @@ namespace InglesEscuela {
                         null,
                         Calificación,
                         idProfesor,
-                        IdUsuario};
+                        IdUsuario,
+                        Nivel,
+                        IdGrado};
                 if ((parentAlumnosRowByAlumnos_Calificaciones != null)) {
                     columnValuesArray[2] = parentAlumnosRowByAlumnos_Calificaciones[0];
                 }
@@ -1070,6 +1099,8 @@ namespace InglesEscuela {
                 this.columnCalificación = base.Columns["Calificación"];
                 this.columnidProfesor = base.Columns["idProfesor"];
                 this.columnIdUsuario = base.Columns["IdUsuario"];
+                this.columnNivel = base.Columns["Nivel"];
+                this.columnIdGrado = base.Columns["IdGrado"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1087,6 +1118,10 @@ namespace InglesEscuela {
                 base.Columns.Add(this.columnidProfesor);
                 this.columnIdUsuario = new global::System.Data.DataColumn("IdUsuario", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIdUsuario);
+                this.columnNivel = new global::System.Data.DataColumn("Nivel", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNivel);
+                this.columnIdGrado = new global::System.Data.DataColumn("IdGrado", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIdGrado);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -1097,6 +1132,8 @@ namespace InglesEscuela {
                 this.columnIdAlumno.MaxLength = 12;
                 this.columnidProfesor.MaxLength = 6;
                 this.columnIdUsuario.MaxLength = 6;
+                this.columnNivel.MaxLength = 255;
+                this.columnIdGrado.MaxLength = 6;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2759,8 +2796,6 @@ namespace InglesEscuela {
             
             private global::System.Data.DataColumn columnGrado_IdGrado;
             
-            private global::System.Data.DataColumn columnNivel;
-            
             private global::System.Data.DataColumn columnNombreGrado;
             
             private global::System.Data.DataColumn columnProfesores_IdProfesor;
@@ -2782,6 +2817,10 @@ namespace InglesEscuela {
             private global::System.Data.DataColumn columnPassword;
             
             private global::System.Data.DataColumn columnUsuarios_NivelUsr;
+            
+            private global::System.Data.DataColumn columnCalificaciones_Nivel;
+            
+            private global::System.Data.DataColumn columnGrado_Nivel;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
@@ -2882,14 +2921,6 @@ namespace InglesEscuela {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn NivelColumn {
-                get {
-                    return this.columnNivel;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public global::System.Data.DataColumn NombreGradoColumn {
                 get {
                     return this.columnNombreGrado;
@@ -2978,6 +3009,22 @@ namespace InglesEscuela {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn Calificaciones_NivelColumn {
+                get {
+                    return this.columnCalificaciones_Nivel;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn Grado_NivelColumn {
+                get {
+                    return this.columnGrado_Nivel;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -3021,9 +3068,8 @@ namespace InglesEscuela {
                         string Calificaciones_IdProfesor, 
                         string IdUsuario, 
                         string Grado_IdGrado, 
-                        string Nivel, 
                         string NombreGrado, 
-                        string Profesores_IdProfesor, 
+                        ProfesoresRow parentProfesoresRowByProfesores_ConCalGen, 
                         string NombrePro, 
                         string Carrera, 
                         string Profesores_NivelUsr, 
@@ -3032,7 +3078,9 @@ namespace InglesEscuela {
                         string Usuario, 
                         string NombreUsr, 
                         string Password, 
-                        string Usuarios_NivelUsr) {
+                        string Usuarios_NivelUsr, 
+                        string Calificaciones_Nivel, 
+                        string Grado_Nivel) {
                 ConCalGenRow rowConCalGenRow = ((ConCalGenRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -3043,9 +3091,8 @@ namespace InglesEscuela {
                         Calificaciones_IdProfesor,
                         IdUsuario,
                         Grado_IdGrado,
-                        Nivel,
                         NombreGrado,
-                        Profesores_IdProfesor,
+                        null,
                         NombrePro,
                         Carrera,
                         Profesores_NivelUsr,
@@ -3054,9 +3101,14 @@ namespace InglesEscuela {
                         Usuario,
                         NombreUsr,
                         Password,
-                        Usuarios_NivelUsr};
+                        Usuarios_NivelUsr,
+                        Calificaciones_Nivel,
+                        Grado_Nivel};
                 if ((parentAlumnosRowByAlumnos_ConCalGen != null)) {
                     columnValuesArray[3] = parentAlumnosRowByAlumnos_ConCalGen[0];
+                }
+                if ((parentProfesoresRowByProfesores_ConCalGen != null)) {
+                    columnValuesArray[9] = parentProfesoresRowByProfesores_ConCalGen[0];
                 }
                 rowConCalGenRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowConCalGenRow);
@@ -3088,7 +3140,6 @@ namespace InglesEscuela {
                 this.columnCalificaciones_IdProfesor = base.Columns["Calificaciones_IdProfesor"];
                 this.columnIdUsuario = base.Columns["IdUsuario"];
                 this.columnGrado_IdGrado = base.Columns["Grado_IdGrado"];
-                this.columnNivel = base.Columns["Nivel"];
                 this.columnNombreGrado = base.Columns["NombreGrado"];
                 this.columnProfesores_IdProfesor = base.Columns["Profesores_IdProfesor"];
                 this.columnNombrePro = base.Columns["NombrePro"];
@@ -3100,6 +3151,8 @@ namespace InglesEscuela {
                 this.columnNombreUsr = base.Columns["NombreUsr"];
                 this.columnPassword = base.Columns["Password"];
                 this.columnUsuarios_NivelUsr = base.Columns["Usuarios_NivelUsr"];
+                this.columnCalificaciones_Nivel = base.Columns["Calificaciones_Nivel"];
+                this.columnGrado_Nivel = base.Columns["Grado_Nivel"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3121,8 +3174,6 @@ namespace InglesEscuela {
                 base.Columns.Add(this.columnIdUsuario);
                 this.columnGrado_IdGrado = new global::System.Data.DataColumn("Grado_IdGrado", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnGrado_IdGrado);
-                this.columnNivel = new global::System.Data.DataColumn("Nivel", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnNivel);
                 this.columnNombreGrado = new global::System.Data.DataColumn("NombreGrado", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnNombreGrado);
                 this.columnProfesores_IdProfesor = new global::System.Data.DataColumn("Profesores_IdProfesor", typeof(string), null, global::System.Data.MappingType.Element);
@@ -3145,6 +3196,10 @@ namespace InglesEscuela {
                 base.Columns.Add(this.columnPassword);
                 this.columnUsuarios_NivelUsr = new global::System.Data.DataColumn("Usuarios_NivelUsr", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnUsuarios_NivelUsr);
+                this.columnCalificaciones_Nivel = new global::System.Data.DataColumn("Calificaciones_Nivel", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCalificaciones_Nivel);
+                this.columnGrado_Nivel = new global::System.Data.DataColumn("Grado_Nivel", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnGrado_Nivel);
                 this.columnId.AutoIncrement = true;
                 this.columnId.AutoIncrementSeed = -1;
                 this.columnId.AutoIncrementStep = -1;
@@ -3153,7 +3208,6 @@ namespace InglesEscuela {
                 this.columnCalificaciones_IdProfesor.MaxLength = 6;
                 this.columnIdUsuario.MaxLength = 6;
                 this.columnGrado_IdGrado.MaxLength = 6;
-                this.columnNivel.MaxLength = 255;
                 this.columnNombreGrado.MaxLength = 255;
                 this.columnProfesores_IdProfesor.MaxLength = 6;
                 this.columnNombrePro.MaxLength = 255;
@@ -3165,6 +3219,10 @@ namespace InglesEscuela {
                 this.columnNombreUsr.MaxLength = 255;
                 this.columnPassword.MaxLength = 255;
                 this.columnUsuarios_NivelUsr.MaxLength = 255;
+                this.columnCalificaciones_Nivel.Caption = "Calificaciones.Nivel";
+                this.columnCalificaciones_Nivel.MaxLength = 255;
+                this.columnGrado_Nivel.Caption = "Grado.Nivel";
+                this.columnGrado_Nivel.MaxLength = 255;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3625,6 +3683,38 @@ namespace InglesEscuela {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string Nivel {
+                get {
+                    try {
+                        return ((string)(this[this.tableCalificaciones.NivelColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Nivel\' de la tabla \'Calificaciones\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCalificaciones.NivelColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string IdGrado {
+                get {
+                    try {
+                        return ((string)(this[this.tableCalificaciones.IdGradoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'IdGrado\' de la tabla \'Calificaciones\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCalificaciones.IdGradoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public AlumnosRow AlumnosRow {
                 get {
                     return ((AlumnosRow)(this.GetParentRow(this.Table.ParentRelations["Alumnos_Calificaciones"])));
@@ -3692,6 +3782,30 @@ namespace InglesEscuela {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetIdUsuarioNull() {
                 this[this.tableCalificaciones.IdUsuarioColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsNivelNull() {
+                return this.IsNull(this.tableCalificaciones.NivelColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetNivelNull() {
+                this[this.tableCalificaciones.NivelColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsIdGradoNull() {
+                return this.IsNull(this.tableCalificaciones.IdGradoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetIdGradoNull() {
+                this[this.tableCalificaciones.IdGradoColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -3830,6 +3944,17 @@ namespace InglesEscuela {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetEdadNull() {
                 this[this.tableProfesores.EdadColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public ConCalGenRow[] GetConCalGenRows() {
+                if ((this.Table.ChildRelations["Profesores_ConCalGen"] == null)) {
+                    return new ConCalGenRow[0];
+                }
+                else {
+                    return ((ConCalGenRow[])(base.GetChildRows(this.Table.ChildRelations["Profesores_ConCalGen"])));
+                }
             }
         }
         
@@ -4464,22 +4589,6 @@ namespace InglesEscuela {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string Nivel {
-                get {
-                    try {
-                        return ((string)(this[this.tableConCalGen.NivelColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Nivel\' de la tabla \'ConCalGen\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableConCalGen.NivelColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string NombreGrado {
                 get {
                     try {
@@ -4657,12 +4766,55 @@ namespace InglesEscuela {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string Calificaciones_Nivel {
+                get {
+                    try {
+                        return ((string)(this[this.tableConCalGen.Calificaciones_NivelColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Calificaciones_Nivel\' de la tabla \'ConCalGen\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableConCalGen.Calificaciones_NivelColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string Grado_Nivel {
+                get {
+                    try {
+                        return ((string)(this[this.tableConCalGen.Grado_NivelColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Grado_Nivel\' de la tabla \'ConCalGen\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableConCalGen.Grado_NivelColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public AlumnosRow AlumnosRow {
                 get {
                     return ((AlumnosRow)(this.GetParentRow(this.Table.ParentRelations["Alumnos_ConCalGen"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["Alumnos_ConCalGen"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public ProfesoresRow ProfesoresRow {
+                get {
+                    return ((ProfesoresRow)(this.GetParentRow(this.Table.ParentRelations["Profesores_ConCalGen"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["Profesores_ConCalGen"]);
                 }
             }
             
@@ -4760,18 +4912,6 @@ namespace InglesEscuela {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetGrado_IdGradoNull() {
                 this[this.tableConCalGen.Grado_IdGradoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsNivelNull() {
-                return this.IsNull(this.tableConCalGen.NivelColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetNivelNull() {
-                this[this.tableConCalGen.NivelColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4904,6 +5044,30 @@ namespace InglesEscuela {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetUsuarios_NivelUsrNull() {
                 this[this.tableConCalGen.Usuarios_NivelUsrColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsCalificaciones_NivelNull() {
+                return this.IsNull(this.tableConCalGen.Calificaciones_NivelColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetCalificaciones_NivelNull() {
+                this[this.tableConCalGen.Calificaciones_NivelColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsGrado_NivelNull() {
+                return this.IsNull(this.tableConCalGen.Grado_NivelColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetGrado_NivelNull() {
+                this[this.tableConCalGen.Grado_NivelColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -5870,10 +6034,12 @@ namespace InglesEscuela.AlumnosDBDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("Calificación", "Calificación");
             tableMapping.ColumnMappings.Add("idProfesor", "idProfesor");
             tableMapping.ColumnMappings.Add("IdUsuario", "IdUsuario");
+            tableMapping.ColumnMappings.Add("Nivel", "Nivel");
+            tableMapping.ColumnMappings.Add("IdGrado", "IdGrado");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `Calificaciones` WHERE ((`Id` = ?) AND ((? = 1 AND `Fecha` IS NULL) OR (`Fecha` = ?)) AND ((? = 1 AND `IdAlumno` IS NULL) OR (`IdAlumno` = ?)) AND ((? = 1 AND `Calificación` IS NULL) OR (`Calificación` = ?)) AND ((? = 1 AND `idProfesor` IS NULL) OR (`idProfesor` = ?)) AND ((? = 1 AND `IdUsuario` IS NULL) OR (`IdUsuario` = ?)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `Calificaciones` WHERE ((`Id` = ?) AND ((? = 1 AND `Fecha` IS NULL) OR (`Fecha` = ?)) AND ((? = 1 AND `IdAlumno` IS NULL) OR (`IdAlumno` = ?)) AND ((? = 1 AND `Calificación` IS NULL) OR (`Calificación` = ?)) AND ((? = 1 AND `idProfesor` IS NULL) OR (`idProfesor` = ?)) AND ((? = 1 AND `IdUsuario` IS NULL) OR (`IdUsuario` = ?)) AND ((? = 1 AND `Nivel` IS NULL) OR (`Nivel` = ?)) AND ((? = 1 AND `IdGrado` IS NULL) OR (`IdGrado` = ?)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Id", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Id", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Fecha", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Fecha", global::System.Data.DataRowVersion.Original, true, null));
@@ -5886,25 +6052,33 @@ namespace InglesEscuela.AlumnosDBDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_idProfesor", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "idProfesor", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_IdUsuario", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IdUsuario", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_IdUsuario", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IdUsuario", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Nivel", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Nivel", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Nivel", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Nivel", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_IdGrado", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IdGrado", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_IdGrado", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IdGrado", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = "INSERT INTO `Calificaciones` (`Fecha`, `IdAlumno`, `Calificación`, `idProfesor`, " +
-                "`IdUsuario`) VALUES (?, ?, ?, ?, ?)";
+                "`IdUsuario`, `Nivel`, `IdGrado`) VALUES (?, ?, ?, ?, ?, ?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Fecha", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Fecha", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IdAlumno", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IdAlumno", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Calificación", global::System.Data.OleDb.OleDbType.Numeric, 0, global::System.Data.ParameterDirection.Input, ((byte)(18)), ((byte)(1)), "Calificación", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("idProfesor", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "idProfesor", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IdUsuario", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IdUsuario", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Nivel", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Nivel", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IdGrado", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IdGrado", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `Calificaciones` SET `Fecha` = ?, `IdAlumno` = ?, `Calificación` = ?, `idProfesor` = ?, `IdUsuario` = ? WHERE ((`Id` = ?) AND ((? = 1 AND `Fecha` IS NULL) OR (`Fecha` = ?)) AND ((? = 1 AND `IdAlumno` IS NULL) OR (`IdAlumno` = ?)) AND ((? = 1 AND `Calificación` IS NULL) OR (`Calificación` = ?)) AND ((? = 1 AND `idProfesor` IS NULL) OR (`idProfesor` = ?)) AND ((? = 1 AND `IdUsuario` IS NULL) OR (`IdUsuario` = ?)))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE `Calificaciones` SET `Fecha` = ?, `IdAlumno` = ?, `Calificación` = ?, `idProfesor` = ?, `IdUsuario` = ?, `Nivel` = ?, `IdGrado` = ? WHERE ((`Id` = ?) AND ((? = 1 AND `Fecha` IS NULL) OR (`Fecha` = ?)) AND ((? = 1 AND `IdAlumno` IS NULL) OR (`IdAlumno` = ?)) AND ((? = 1 AND `Calificación` IS NULL) OR (`Calificación` = ?)) AND ((? = 1 AND `idProfesor` IS NULL) OR (`idProfesor` = ?)) AND ((? = 1 AND `IdUsuario` IS NULL) OR (`IdUsuario` = ?)) AND ((? = 1 AND `Nivel` IS NULL) OR (`Nivel` = ?)) AND ((? = 1 AND `IdGrado` IS NULL) OR (`IdGrado` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Fecha", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Fecha", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IdAlumno", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IdAlumno", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Calificación", global::System.Data.OleDb.OleDbType.Numeric, 0, global::System.Data.ParameterDirection.Input, ((byte)(18)), ((byte)(1)), "Calificación", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("idProfesor", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "idProfesor", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IdUsuario", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IdUsuario", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Nivel", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Nivel", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IdGrado", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IdGrado", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Id", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Id", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Fecha", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Fecha", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Fecha", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Fecha", global::System.Data.DataRowVersion.Original, false, null));
@@ -5916,6 +6090,10 @@ namespace InglesEscuela.AlumnosDBDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_idProfesor", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "idProfesor", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_IdUsuario", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IdUsuario", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_IdUsuario", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IdUsuario", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Nivel", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Nivel", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Nivel", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Nivel", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_IdGrado", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IdGrado", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_IdGrado", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IdGrado", global::System.Data.DataRowVersion.Original, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5931,8 +6109,8 @@ namespace InglesEscuela.AlumnosDBDataSetTableAdapters {
             this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT Id, Fecha, IdAlumno, Calificación, idProfesor, IdUsuario FROM Calificacion" +
-                "es";
+            this._commandCollection[0].CommandText = "SELECT Id, Fecha, IdAlumno, Calificación, idProfesor, IdUsuario, Nivel, IdGrado F" +
+                "ROM Calificaciones";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -5993,7 +6171,7 @@ namespace InglesEscuela.AlumnosDBDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_Id, global::System.Nullable<global::System.DateTime> Original_Fecha, string Original_IdAlumno, global::System.Nullable<decimal> Original_Calificación, string Original_idProfesor, string Original_IdUsuario) {
+        public virtual int Delete(int Original_Id, global::System.Nullable<global::System.DateTime> Original_Fecha, string Original_IdAlumno, global::System.Nullable<decimal> Original_Calificación, string Original_idProfesor, string Original_IdUsuario, string Original_Nivel, string Original_IdGrado) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Id));
             if ((Original_Fecha.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
@@ -6035,6 +6213,22 @@ namespace InglesEscuela.AlumnosDBDataSetTableAdapters {
                 this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
                 this.Adapter.DeleteCommand.Parameters[10].Value = ((string)(Original_IdUsuario));
             }
+            if ((Original_Nivel == null)) {
+                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[12].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[12].Value = ((string)(Original_Nivel));
+            }
+            if ((Original_IdGrado == null)) {
+                this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[14].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[14].Value = ((string)(Original_IdGrado));
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6055,7 +6249,7 @@ namespace InglesEscuela.AlumnosDBDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(global::System.Nullable<global::System.DateTime> Fecha, string IdAlumno, global::System.Nullable<decimal> Calificación, string idProfesor, string IdUsuario) {
+        public virtual int Insert(global::System.Nullable<global::System.DateTime> Fecha, string IdAlumno, global::System.Nullable<decimal> Calificación, string idProfesor, string IdUsuario, string Nivel, string IdGrado) {
             if ((Fecha.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((System.DateTime)(Fecha.Value));
             }
@@ -6086,6 +6280,18 @@ namespace InglesEscuela.AlumnosDBDataSetTableAdapters {
             else {
                 this.Adapter.InsertCommand.Parameters[4].Value = ((string)(IdUsuario));
             }
+            if ((Nivel == null)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(Nivel));
+            }
+            if ((IdGrado == null)) {
+                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[6].Value = ((string)(IdGrado));
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6106,7 +6312,7 @@ namespace InglesEscuela.AlumnosDBDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(global::System.Nullable<global::System.DateTime> Fecha, string IdAlumno, global::System.Nullable<decimal> Calificación, string idProfesor, string IdUsuario, int Original_Id, global::System.Nullable<global::System.DateTime> Original_Fecha, string Original_IdAlumno, global::System.Nullable<decimal> Original_Calificación, string Original_idProfesor, string Original_IdUsuario) {
+        public virtual int Update(global::System.Nullable<global::System.DateTime> Fecha, string IdAlumno, global::System.Nullable<decimal> Calificación, string idProfesor, string IdUsuario, string Nivel, string IdGrado, int Original_Id, global::System.Nullable<global::System.DateTime> Original_Fecha, string Original_IdAlumno, global::System.Nullable<decimal> Original_Calificación, string Original_idProfesor, string Original_IdUsuario, string Original_Nivel, string Original_IdGrado) {
             if ((Fecha.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((System.DateTime)(Fecha.Value));
             }
@@ -6137,46 +6343,74 @@ namespace InglesEscuela.AlumnosDBDataSetTableAdapters {
             else {
                 this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(IdUsuario));
             }
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_Id));
-            if ((Original_Fecha.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((System.DateTime)(Original_Fecha.Value));
+            if ((Nivel == null)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Nivel));
             }
-            if ((Original_IdAlumno == null)) {
+            if ((IdGrado == null)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(IdGrado));
+            }
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_Id));
+            if ((Original_Fecha.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((System.DateTime)(Original_Fecha.Value));
+            }
+            else {
                 this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(Original_IdAlumno));
-            }
-            if ((Original_Calificación.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((decimal)(Original_Calificación.Value));
-            }
-            else {
+            if ((Original_IdAlumno == null)) {
                 this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
             }
-            if ((Original_idProfesor == null)) {
+            else {
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((string)(Original_IdAlumno));
+            }
+            if ((Original_Calificación.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((decimal)(Original_Calificación.Value));
+            }
+            else {
                 this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((string)(Original_idProfesor));
-            }
-            if ((Original_IdUsuario == null)) {
+            if ((Original_idProfesor == null)) {
                 this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[15].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((string)(Original_IdUsuario));
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((string)(Original_idProfesor));
+            }
+            if ((Original_IdUsuario == null)) {
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[17].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((string)(Original_IdUsuario));
+            }
+            if ((Original_Nivel == null)) {
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[19].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((string)(Original_Nivel));
+            }
+            if ((Original_IdGrado == null)) {
+                this.Adapter.UpdateCommand.Parameters[20].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[21].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[20].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[21].Value = ((string)(Original_IdGrado));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -6375,11 +6609,17 @@ namespace InglesEscuela.AlumnosDBDataSetTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
+            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[2];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT IdProfesor, NombrePro, Carrera, NivelUsr, Edad FROM Profesores";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::System.Data.OleDb.OleDbCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "SELECT IdProfesor, NombrePro, Carrera, NivelUsr, Edad \r\nFROM Profesores\r\nWHERE Id" +
+                "Profesor = ?";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IdProfesor", global::System.Data.OleDb.OleDbType.WChar, 6, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IdProfesor", global::System.Data.DataRowVersion.Current, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6401,6 +6641,42 @@ namespace InglesEscuela.AlumnosDBDataSetTableAdapters {
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual AlumnosDBDataSet.ProfesoresDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            AlumnosDBDataSet.ProfesoresDataTable dataTable = new AlumnosDBDataSet.ProfesoresDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByIdProf(AlumnosDBDataSet.ProfesoresDataTable dataTable, string IdProfesor) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((IdProfesor == null)) {
+                throw new global::System.ArgumentNullException("IdProfesor");
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(IdProfesor));
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual AlumnosDBDataSet.ProfesoresDataTable GetDataBy(string IdProfesor) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((IdProfesor == null)) {
+                throw new global::System.ArgumentNullException("IdProfesor");
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(IdProfesor));
+            }
             AlumnosDBDataSet.ProfesoresDataTable dataTable = new AlumnosDBDataSet.ProfesoresDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -8023,7 +8299,6 @@ namespace InglesEscuela.AlumnosDBDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("Calificaciones.IdProfesor", "Calificaciones_IdProfesor");
             tableMapping.ColumnMappings.Add("IdUsuario", "IdUsuario");
             tableMapping.ColumnMappings.Add("Grado.IdGrado", "Grado_IdGrado");
-            tableMapping.ColumnMappings.Add("Nivel", "Nivel");
             tableMapping.ColumnMappings.Add("NombreGrado", "NombreGrado");
             tableMapping.ColumnMappings.Add("Profesores.IdProfesor", "Profesores_IdProfesor");
             tableMapping.ColumnMappings.Add("NombrePro", "NombrePro");
@@ -8035,6 +8310,8 @@ namespace InglesEscuela.AlumnosDBDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("NombreUsr", "NombreUsr");
             tableMapping.ColumnMappings.Add("Password", "Password");
             tableMapping.ColumnMappings.Add("Usuarios.NivelUsr", "Usuarios_NivelUsr");
+            tableMapping.ColumnMappings.Add("Calificaciones.Nivel", "Calificaciones_Nivel");
+            tableMapping.ColumnMappings.Add("Grado.Nivel", "Grado_Nivel");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -8051,7 +8328,7 @@ namespace InglesEscuela.AlumnosDBDataSetTableAdapters {
             this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT Id, Fecha, [Calificaciones.IdGrado], IdAlumno, Calificación, [Calificaciones.IdProfesor], IdUsuario, [Grado.IdGrado], Nivel, NombreGrado, [Profesores.IdProfesor], NombrePro, Carrera, [Profesores.NivelUsr], Edad, IdUser, Usuario, NombreUsr, [Password], [Usuarios.NivelUsr] FROM ConCalGen";
+            this._commandCollection[0].CommandText = @"SELECT Id, Fecha, [Calificaciones.IdGrado], IdAlumno, Calificación, [Calificaciones.IdProfesor], IdUsuario, [Grado.IdGrado], NombreGrado, [Profesores.IdProfesor], NombrePro, Carrera, [Profesores.NivelUsr], Edad, IdUser, Usuario, NombreUsr, [Password], [Usuarios.NivelUsr], [Calificaciones.Nivel], [Grado.Nivel] FROM ConCalGen";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -8274,21 +8551,21 @@ namespace InglesEscuela.AlumnosDBDataSetTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._calificacionesTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Calificaciones.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._calificacionesTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._profesoresTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.Profesores.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._profesoresTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._calificacionesTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Calificaciones.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._calificacionesTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -8328,19 +8605,19 @@ namespace InglesEscuela.AlumnosDBDataSetTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._calificacionesTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Calificaciones.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._calificacionesTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._profesoresTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.Profesores.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._profesoresTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._calificacionesTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Calificaciones.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._calificacionesTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -8386,19 +8663,19 @@ namespace InglesEscuela.AlumnosDBDataSetTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._profesoresTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Profesores.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._profesoresTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._calificacionesTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.Calificaciones.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._calificacionesTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._profesoresTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Profesores.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._profesoresTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }

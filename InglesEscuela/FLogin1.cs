@@ -62,7 +62,7 @@ namespace InglesEscuela
 
                     FMenu Frm = new FMenu();
                     this.Hide();
-                    Frm.ShowDialog();
+                    DialogResult dialogResult = Frm.ShowDialog();
                     this.Show();
                 }
                 else

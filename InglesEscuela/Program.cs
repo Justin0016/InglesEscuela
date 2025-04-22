@@ -16,7 +16,7 @@ namespace InglesEscuela
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FLogin1());
+            Application.Run(new FMenu());
         }
     }
 }

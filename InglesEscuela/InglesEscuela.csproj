@@ -67,11 +67,13 @@
   <ItemGroup>
     <Compile Include="AlumnosDBDataSet.cs">
       <DependentUpon>AlumnosDBDataSet.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="AlumnosDBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AlumnosDBDataSet.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="FInformes.cs">
       <SubType>Form</SubType>
@@ -165,14 +167,17 @@
     </EmbeddedResource>
     <None Include="AlumnosDBDataSet.xsc">
       <DependentUpon>AlumnosDBDataSet.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="AlumnosDBDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>AlumnosDBDataSet.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="AlumnosDBDataSet.xss">
       <DependentUpon>AlumnosDBDataSet.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
